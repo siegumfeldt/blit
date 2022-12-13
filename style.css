@@ -1,0 +1,20 @@
+body {
+  background-color: black;
+}
+
+#editor {
+  position: fixed;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  width: 600px;
+}
+
+#game {
+  position: fixed;
+  height: 100%;
+  left: 650px;
+  width: 100%;
+  padding-top: 50px;
+}
+

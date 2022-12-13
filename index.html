@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="editor">
+
+
+reset();
+setSpeed(100);
+while() {
+  paint(); move();
+  if(feel() || look()) turn();
+
+}
+    
+  </div>
+  <div id="buttons">
+    <button id="run">Run</button>
+  </div>
+  <div id="game"></div>
+
+  <script src="https://pixijs.download/release/pixi.js"></script>
+  <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="ace/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
+  <script src="ace/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
+
+  <script type="module">
+    import { fromURL } from "./blit/blit.js";
+
+    const blit = fromURL();
+
+    function runCode() {
+      blit.go(editor.getValue())
+    }
+    document.getElementById("run").addEventListener("click", runCode);
+
+
+    let editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    let JavaScriptMode = ace.require("ace/mode/javascript").Mode;
+    editor.session.setMode(new JavaScriptMode());
+
+    editor.commands.addCommand({
+    name: 'myCommand',
+    bindKey: {win: 'Ctrl-Enter',  mac: 'Command-Enter'},
+    exec: function(editor) {
+      runCode();
+    },
+    readOnly: true, // false if this command should not apply in readOnly mode
+    // multiSelectAction: "forEach", optional way to control behavior with multiple cursors
+    // scrollIntoView: "cursor", control how cursor is scolled into view after the command
+});
+
+</script>
+</body>
+</html>
