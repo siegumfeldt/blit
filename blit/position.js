@@ -5,7 +5,7 @@ export class Position {
     }
 
     toString() {
-        return `<Position ${this.col}, ${this.row}>`;
+        return `(${this.col}, ${this.row})`;
     }
 
     plus(direction) {

@@ -7,19 +7,13 @@
 </head>
 <body>
   <div id="editor">
-
-
 reset();
-setSpeed(100);
-while() {
-  paint(); move();
-  if(feel() || look()) turn();
+goFast();
 
+while(!look().isSolid) {
+  blit();
+  move();
 }
-    
-  </div>
-  <div id="buttons">
-    <button id="run">Run</button>
   </div>
   <div id="game"></div>
 
@@ -29,16 +23,19 @@ while() {
   <script src="ace/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
 
   <script type="module">
-    import { fromURL } from "./blit/blit.js";
+    import { fromURL } from "./blit/level.js";
+    import { Renderer } from "./blit/render.js";
+    import { Game } from "./blit/game.js";
 
-    const blit = fromURL();
+    const level = fromURL();
+    const renderer = new Renderer(document.getElementById("game"), level);
+    const game = new Game(level);
 
     function runCode() {
-      blit.go(editor.getValue())
+      game.go(editor.getValue());
+      renderer.play(game.actions);
     }
-    document.getElementById("run").addEventListener("click", runCode);
-
-
+    
     let editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     let JavaScriptMode = ace.require("ace/mode/javascript").Mode;
@@ -54,7 +51,6 @@ while() {
     // multiSelectAction: "forEach", optional way to control behavior with multiple cursors
     // scrollIntoView: "cursor", control how cursor is scolled into view after the command
 });
-
 </script>
 </body>
 </html>
